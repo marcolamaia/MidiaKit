@@ -1,0 +1,113 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   Paleta escura, sóbria, com um único acento (violeta). Sem neon, sem
+   gradiente decorativo — a cor só aparece onde carrega significado.
+   ========================================================================== */
+
+:root {
+  /* ---- Superfícies ---- */
+  --bg: #08090c;
+  --bg-elevated: #0b0d11;
+  --surface: #0e1015;
+  --surface-2: #12151b;
+  --surface-3: #171b22;
+  --surface-hover: #1a1e26;
+
+  /* ---- Bordas ---- */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(124, 92, 255, 0.32);
+
+  /* ---- Texto ---- */
+  --text: #f2f3f5;
+  --text-secondary: #9aa1ad;
+  --text-muted: #6b7280;
+  --text-faint: #4b5563;
+
+  /* ---- Acento ---- */
+  --accent: #7c5cff;
+  --accent-bright: #9b82ff;
+  --accent-soft: rgba(124, 92, 255, 0.14);
+  --accent-softer: rgba(124, 92, 255, 0.07);
+  --accent-contrast: #ffffff;
+
+  /* ---- Sinal (variação de métrica) ---- */
+  --positive: #34d399;
+  --positive-soft: rgba(52, 211, 153, 0.12);
+  --negative: #f87171;
+  --negative-soft: rgba(248, 113, 113, 0.12);
+  --neutral: #9aa1ad;
+  --neutral-soft: rgba(154, 161, 173, 0.12);
+
+  /* ---- Tipografia ---- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-numeric: var(--font-sans);
+
+  --text-xs: 0.6875rem;   /* 11px */
+  --text-sm: 0.8125rem;   /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-md: 1.0625rem;   /* 17px */
+  --text-lg: 1.375rem;    /* 22px */
+  --text-xl: 1.75rem;     /* 28px */
+  --text-2xl: 2.25rem;    /* 36px */
+  --text-3xl: clamp(2.25rem, 6vw, 4rem);
+
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.14em;
+
+  /* ---- Espaçamento ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ---- Raio ---- */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
+
+  /* ---- Sombra ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  --glow: 0 0 0 1px var(--border-accent), 0 12px 40px -12px rgba(124, 92, 255, 0.4);
+
+  /* ---- Layout ---- */
+  --container: 1220px;
+  --header-height: 68px;
+
+  /* ---- Movimento ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 140ms;
+  --duration: 260ms;
+  --duration-slow: 620ms;
+}
+
+/* Quem pediu menos movimento recebe transições instantâneas em toda a página. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration: 0.01ms;
+    --duration-slow: 0.01ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

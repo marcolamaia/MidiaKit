@@ -1,0 +1,63 @@
+{
+  "_comment": "Amostra REAL de respostas do conector `instagram` da Windsor.ai para a conta @marcolamaia, capturada em 25/08/2026. Serve para garantir que a normalização lida com o formato exato que a API devolve (incluindo nulos, tipos de mídia e rótulos de cidade em 'Cidade, Estado (state)'). Números reduzidos a uma amostra — não é o dataset completo.",
+  "profileRows": [
+    { "username": "marcolamaia", "name": "Marcos Maia", "followers_count": 3037685, "follows_count": 634, "media_count": 860, "biography": "🙏 Conhecimento é poder", "website": "https://marcolamaia.com", "user_id": "28920628550857448" }
+  ],
+  "dailyRows": [
+    { "date": "2026-08-18", "reach": 142128, "views": 226699, "total_interactions": 31403, "accounts_engaged": 17855, "likes": 14146, "comments": 628, "shares": 5577, "saves": 5206, "follower_count": 2292, "replies": 0 },
+    { "date": "2026-08-19", "reach": 302140, "views": 581525, "total_interactions": 58462, "accounts_engaged": 31902, "likes": 26118, "comments": 1475, "shares": 10995, "saves": 7988, "follower_count": 2315, "replies": 6 },
+    { "date": "2026-08-20", "reach": 372506, "views": 674834, "total_interactions": 67798, "accounts_engaged": 38203, "likes": 30090, "comments": 2221, "shares": 12317, "saves": 9940, "follower_count": 2036, "replies": 6 },
+    { "date": "2026-08-21", "reach": 295574, "views": 542285, "total_interactions": 57051, "accounts_engaged": 30887, "likes": 21540, "comments": 1802, "shares": 11403, "saves": 10423, "follower_count": 1708, "replies": 2 },
+    { "date": "2026-08-22", "reach": 222942, "views": 419846, "total_interactions": 37377, "accounts_engaged": 20280, "likes": 14444, "comments": 933, "shares": 7665, "saves": 6319, "follower_count": 1794, "replies": 30 },
+    { "date": "2026-08-23", "reach": 170910, "views": 288050, "total_interactions": 30889, "accounts_engaged": 18305, "likes": 13099, "comments": 705, "shares": 5893, "saves": 5030, "follower_count": 1690, "replies": 9 },
+    { "date": "2026-08-24", "reach": 183530, "views": 317105, "total_interactions": 33497, "accounts_engaged": 19464, "likes": 14952, "comments": 664, "shares": 5718, "saves": 6133, "follower_count": 0, "replies": 11 }
+  ],
+  "mediaRows": [
+    { "media_id": "18126306568817502", "media_type": "REELS", "media_product_type": "REELS", "timestamp": "2026-08-19T20:14:37+0000", "media_permalink": "https://www.instagram.com/reel/DcPBNyribpC/", "media_thumbnail_url": "https://scontent.cdninstagram.com/exemplo.jpg", "media_url": "https://scontent.cdninstagram.com/exemplo.mp4", "media_caption": "O que acha disso?", "media_views": 384600, "media_reach": 252246, "media_like_count": 18216, "media_comments_count": 1479, "media_shares": 9776, "media_saved": 1336, "media_engagement": 32343 },
+    { "media_id": "18003169484785776", "media_type": "REELS", "media_product_type": "REELS", "timestamp": "2026-08-20T20:55:09+0000", "media_permalink": "https://www.instagram.com/reel/DcRq4-EhL4X/", "media_thumbnail_url": "https://scontent.cdninstagram.com/exemplo2.jpg", "media_url": null, "media_caption": "Amigo + Google + Runable", "media_views": 297206, "media_reach": 216132, "media_like_count": 9098, "media_comments_count": 328, "media_shares": 5329, "media_saved": 6056, "media_engagement": 20954 },
+    { "media_id": "18092905577640929", "media_type": "CAROUSEL_ALBUM", "media_product_type": "FEED", "timestamp": "2026-08-21T16:37:23+0000", "media_permalink": "https://www.instagram.com/p/DcTyIo9lixp/", "media_thumbnail_url": null, "media_url": "https://scontent.cdninstagram.com/carrossel.jpg", "media_caption": "Comente “MAIA7” e eu te mando o guia completo no direct.\n\nVocê não precisa ficar horas numa timeline.", "media_views": 129221, "media_reach": 49934, "media_like_count": 1776, "media_comments_count": 1514, "media_shares": 931, "media_saved": 1869, "media_engagement": 6117 },
+    { "media_id": "18187377811392907", "media_type": "REELS", "media_product_type": "REELS", "timestamp": "2026-08-21T20:50:08+0000", "media_permalink": "https://www.instagram.com/reel/DcUPES_h2iA/", "media_thumbnail_url": "https://scontent.cdninstagram.com/exemplo4.jpg", "media_url": null, "media_caption": "iPhone descarregando rápido?", "media_views": 279090, "media_reach": 188325, "media_like_count": 10941, "media_comments_count": 168, "media_shares": 8311, "media_saved": 5277, "media_engagement": 24870 }
+  ],
+  "reelRows": [
+    { "media_id": "18126306568817502", "media_reel_avg_watch_time": 31130, "media_reel_total_watch_time": 7966910744, "media_reel_total_interactions": 32345, "media_reel_skip_rate": 0.423 },
+    { "media_id": "18003169484785776", "media_reel_avg_watch_time": 17569, "media_reel_total_watch_time": 3926680737, "media_reel_total_interactions": 20957, "media_reel_skip_rate": 0.322 },
+    { "media_id": "18092905577640929", "media_reel_avg_watch_time": null, "media_reel_total_watch_time": null, "media_reel_total_interactions": 6118, "media_reel_skip_rate": null },
+    { "media_id": "18187377811392907", "media_reel_avg_watch_time": 20419, "media_reel_total_watch_time": 3854974545, "media_reel_total_interactions": 24873, "media_reel_skip_rate": 0.535 }
+  ],
+  "ageRows": [
+    { "audience_age_name": "13-17", "audience_age_size": 107767 },
+    { "audience_age_name": "18-24", "audience_age_size": 456879 },
+    { "audience_age_name": "25-34", "audience_age_size": 1162999 },
+    { "audience_age_name": "35-44", "audience_age_size": 815717 },
+    { "audience_age_name": "45-54", "audience_age_size": 361789 },
+    { "audience_age_name": "55-64", "audience_age_size": 99661 },
+    { "audience_age_name": "65+", "audience_age_size": 32497 },
+    { "audience_age_name": "U", "audience_age_size": 8 }
+  ],
+  "genderRows": [
+    { "audience_gender_name": "F", "audience_gender_size": 674059 },
+    { "audience_gender_name": "M", "audience_gender_size": 2073358 },
+    { "audience_gender_name": "U", "audience_gender_size": 289900 }
+  ],
+  "cityRows": [
+    { "city": "São Paulo, São Paulo (state)", "audience_city_size": 257567 },
+    { "city": "Rio de Janeiro, Rio de Janeiro (state)", "audience_city_size": 189670 },
+    { "city": "Salvador, Bahia", "audience_city_size": 54427 },
+    { "city": "Belo Horizonte, Minas Gerais", "audience_city_size": 49755 },
+    { "city": "Fortaleza, Ceará", "audience_city_size": 42279 },
+    { "city": "Manaus, Amazonas", "audience_city_size": 36617 },
+    { "city": "Curitiba, Paraná", "audience_city_size": 31643 },
+    { "city": "Goiânia, Goiás", "audience_city_size": 29817 },
+    { "city": "Guarulhos, São Paulo (state)", "audience_city_size": 28530 },
+    { "city": "Taguatinga, Federal District", "audience_city_size": 16945 }
+  ],
+  "countryRows": [
+    { "audience_country_name": "BR", "audience_country_size": 2875871 },
+    { "audience_country_name": "PT", "audience_country_size": 49634 },
+    { "audience_country_name": "AO", "audience_country_size": 22746 },
+    { "audience_country_name": "US", "audience_country_size": 18964 },
+    { "audience_country_name": "MZ", "audience_country_size": 12784 },
+    { "audience_country_name": "ES", "audience_country_size": 5816 }
+  ],
+  "storyRows": []
+}

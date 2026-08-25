@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#08090c" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>Marcos Maia | Media Kit</title>
+    <meta
+      name="description"
+      content="Media Kit oficial de Marcos Maia. Métricas, audiência, alcance, performance e oportunidades de parceria."
+    />
+    <meta name="author" content="Marcos Maia" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!-- Ajuste o domínio em src/config.js (creatorConfig.siteUrl) e aqui. -->
+    <link rel="canonical" href="https://mediakit.marcolamaia.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Marcos Maia — Media Kit" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Marcos Maia | Media Kit" />
+    <meta
+      property="og:description"
+      content="Media Kit oficial de Marcos Maia. Métricas, audiência, alcance, performance e oportunidades de parceria."
+    />
+    <meta property="og:url" content="https://mediakit.marcolamaia.com/" />
+    <meta property="og:image" content="https://mediakit.marcolamaia.com/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Media Kit de Marcos Maia" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Marcos Maia | Media Kit" />
+    <meta
+      name="twitter:description"
+      content="Media Kit oficial de Marcos Maia. Métricas, audiência, alcance, performance e oportunidades de parceria."
+    />
+    <meta name="twitter:image" content="https://mediakit.marcolamaia.com/assets/og-image.png" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <!-- Fonte: preconnect + display=swap para não bloquear a primeira pintura. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
+
+    <!-- Schema.org: identidade do criador e do próprio Media Kit. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://mediakit.marcolamaia.com/#marcos-maia",
+            "name": "Marcos Maia",
+            "alternateName": "@marcolamaia",
+            "jobTitle": "Criador de conteúdo de tecnologia",
+            "description": "Criador de conteúdo focado em tecnologia, inteligência artificial, produtos, inovação e automação.",
+            "url": "https://mediakit.marcolamaia.com/",
+            "sameAs": ["https://www.instagram.com/marcolamaia/"],
+            "knowsAbout": ["Tecnologia", "Inteligência Artificial", "Automação", "Reviews de produtos", "Inovação"]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://mediakit.marcolamaia.com/#pagina",
+            "url": "https://mediakit.marcolamaia.com/",
+            "name": "Marcos Maia | Media Kit",
+            "description": "Media Kit oficial de Marcos Maia. Métricas, audiência, alcance, performance e oportunidades de parceria.",
+            "inLanguage": "pt-BR",
+            "about": { "@id": "https://mediakit.marcolamaia.com/#marcos-maia" }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+    <div id="app"></div>
+
+    <noscript>
+      <div style="padding: 2rem; text-align: center; color: #9aa1ad">
+        Este Media Kit precisa de JavaScript para carregar as métricas em tempo real.
+        Entre em contato pelo Instagram
+        <a href="https://www.instagram.com/marcolamaia/" style="color: #9b82ff">@marcolamaia</a>.
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

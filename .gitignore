@@ -1,0 +1,23 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+.vercel/
+
+# Ambiente — NUNCA comitar credenciais
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
