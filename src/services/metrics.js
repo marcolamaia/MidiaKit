@@ -12,6 +12,8 @@
 import {
   AUDIENCE_QUERIES,
   DAILY_FIELDS,
+  FOLLOWER_FIELDS,
+  FOLLOWER_MAX_DAYS,
   MEDIA_FIELDS,
   PROFILE_FIELDS,
   REEL_FIELDS,
@@ -75,17 +77,27 @@ async function fetchReal(anchor) {
   // A janela de mídia é menor: cards de conteúdo olham no máximo 180 dias.
   const mediaFrom = resolveWindow('180d', anchor).from
 
-  const [profileRows, dailyRows, mediaRows, reelRows, ageRows, genderRows, cityRows, countryRows] =
-    await Promise.all([
-      queryWindsor({ fields: PROFILE_FIELDS, dateFrom: anchor, dateTo: anchor }),
-      queryWindsor({ fields: DAILY_FIELDS, dateFrom: span.from, dateTo: span.to }),
-      queryWindsor({ fields: MEDIA_FIELDS, dateFrom: mediaFrom, dateTo: anchor }),
-      queryWindsor({ fields: REEL_FIELDS, dateFrom: mediaFrom, dateTo: anchor }),
-      queryWindsor({ fields: AUDIENCE_QUERIES.age, dateFrom: anchor, dateTo: anchor }),
-      queryWindsor({ fields: AUDIENCE_QUERIES.gender, dateFrom: anchor, dateTo: anchor }),
-      queryWindsor({ fields: AUDIENCE_QUERIES.city, dateFrom: anchor, dateTo: anchor }),
-      queryWindsor({ fields: AUDIENCE_QUERIES.country, dateFrom: anchor, dateTo: anchor }),
-    ])
+  // `follower_count` sai numa consulta própria e curta: pedido junto com a
+  // série longa, a Windsor rejeita TUDO com erro (ver nota em DAILY_FIELDS).
+  const followerFrom = addDays(anchor, -(FOLLOWER_MAX_DAYS - 1))
+
+  const [
+    profileRows, dailyRows, followerRows, mediaRows, reelRows,
+    ageRows, genderRows, cityRows, countryRows,
+  ] = await Promise.all([
+    queryWindsor({ fields: PROFILE_FIELDS, dateFrom: anchor, dateTo: anchor }),
+    queryWindsor({ fields: DAILY_FIELDS, dateFrom: span.from, dateTo: span.to }),
+    // Falhar aqui não pode derrubar o resto: sem esta série, a interface
+    // apenas marca "novos seguidores" como indisponível.
+    queryWindsor({ fields: FOLLOWER_FIELDS, dateFrom: followerFrom, dateTo: anchor })
+      .catch(() => []),
+    queryWindsor({ fields: MEDIA_FIELDS, dateFrom: mediaFrom, dateTo: anchor }),
+    queryWindsor({ fields: REEL_FIELDS, dateFrom: mediaFrom, dateTo: anchor }),
+    queryWindsor({ fields: AUDIENCE_QUERIES.age, dateFrom: anchor, dateTo: anchor }),
+    queryWindsor({ fields: AUDIENCE_QUERIES.gender, dateFrom: anchor, dateTo: anchor }),
+    queryWindsor({ fields: AUDIENCE_QUERIES.city, dateFrom: anchor, dateTo: anchor }),
+    queryWindsor({ fields: AUDIENCE_QUERIES.country, dateFrom: anchor, dateTo: anchor }),
+  ])
 
   // Stories só existem por 24h e costumam vir vazios. A falha aqui NÃO pode
   // derrubar o Media Kit inteiro.
@@ -100,7 +112,12 @@ async function fetchReal(anchor) {
     storyRows = []
   }
 
-  return { profileRows, dailyRows, mediaRows, reelRows, ageRows, genderRows, cityRows, countryRows, storyRows }
+  return {
+    profileRows,
+    // indexDailyRows mescla por data, então as duas séries podem ser concatenadas.
+    dailyRows: [...dailyRows, ...followerRows],
+    mediaRows, reelRows, ageRows, genderRows, cityRows, countryRows, storyRows,
+  }
 }
 
 function fetchDemo(anchor) {

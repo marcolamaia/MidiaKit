@@ -70,9 +70,13 @@ export function renderEngagement() {
     }
 
     const period = state.data.periods[state.period]
-    const context = period.range.days === 1
-      ? 'vs. dia anterior'
-      : `vs. ${period.range.days} dias anteriores`
+    // Sem janela anterior, dizer "vs. N dias anteriores" ao lado de um número
+    // sem variação sugere uma comparação que não existe.
+    const context = !period.hasComparison
+      ? 'sem período anterior para comparar'
+      : period.range.days === 1
+        ? 'vs. dia anterior'
+        : `vs. ${period.range.days} dias anteriores`
 
     const entries = BREAKDOWN
       .map((item) => ({ label: item.label, value: period.totals[item.key], key: item.key }))

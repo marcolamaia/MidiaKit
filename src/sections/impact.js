@@ -57,7 +57,11 @@ function freshnessBar(meta) {
     el('span', { className: 'freshness-sep', attrs: { 'aria-hidden': 'true' } }),
     el('span', { className: 'freshness-item' }, [
       icon('refresh'),
-      el('span', { text: 'Métricas atualizadas diariamente' }),
+      el('span', {
+        text: meta?.snapshot
+          ? 'Métricas atualizadas a cada geração'
+          : 'Métricas atualizadas diariamente',
+      }),
     ]),
     updatedAt
       ? el('span', { className: 'freshness-sep', attrs: { 'aria-hidden': 'true' } })
@@ -65,13 +69,22 @@ function freshnessBar(meta) {
     updatedAt
       ? el('span', { className: 'freshness-item freshness-item--sync' }, [
           icon('clock'),
-          el('span', { text: `Última sincronização: ${updatedAt}` }),
+          el('span', {
+            // Num arquivo único não existe "sincronização contínua": o dado
+            // foi capturado uma vez. Dizer "última sincronização" ali seria
+            // impreciso, então o rótulo muda conforme a origem.
+            text: meta?.snapshot
+              ? `Dados capturados em ${updatedAt}`
+              : `Última sincronização: ${updatedAt}`,
+          }),
           el('i', {
             className: `freshness-dot${meta?.stale ? ' freshness-dot--stale' : ''}`,
             attrs: {
               title: meta?.stale
                 ? 'Exibindo a última leitura bem-sucedida — a integração não respondeu na última tentativa.'
-                : 'Sincronização em dia.',
+                : meta?.snapshot
+                  ? 'Snapshot embutido neste arquivo. Rode `npm run build:html` para gerar de novo com os números do dia.'
+                  : 'Sincronização em dia.',
             },
           }),
         ])

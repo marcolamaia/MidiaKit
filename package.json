@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint:data": "node scripts/check-windsor.js"
+    "lint:data": "node scripts/check-windsor.js",
+    "build:html": "node scripts/build-single-html.js",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

@@ -1,9 +1,19 @@
 /**
  * ---------------------------------------------------------------------------
- * CLIENTE DA API (NAVEGADOR)
+ * CLIENTE DE DADOS (NAVEGADOR)
  * ---------------------------------------------------------------------------
- * O frontend fala APENAS com `/api/metrics`. Nunca com a Windsor.ai
- * diretamente — é assim que a API Key fica protegida no servidor.
+ * Duas origens possíveis, nesta ordem:
+ *
+ *   1. SNAPSHOT EMBUTIDO (`window.__MEDIA_KIT_DATA__`)
+ *      Existe na versão de arquivo único. A página pinta na hora, sem rede —
+ *      funciona abrindo o HTML com dois cliques, sem servidor nenhum.
+ *
+ *   2. /api/metrics (ao vivo)
+ *      Se o arquivo estiver hospedado ao lado da serverless function, os dados
+ *      ao vivo substituem o snapshot assim que chegam.
+ *
+ * O frontend NUNCA fala com a Windsor.ai diretamente — é assim que a API Key
+ * fica protegida no servidor.
  * ---------------------------------------------------------------------------
  */
 
@@ -18,7 +28,6 @@ export class ApiError extends Error {
   }
 }
 
-/** Mensagens em português para cada falha possível. */
 const MESSAGES = {
   missing_credentials: 'Integração de métricas ainda não configurada.',
   invalid_credentials: 'A credencial de acesso às métricas expirou.',
@@ -30,6 +39,13 @@ const MESSAGES = {
 
 export function messageFor(code) {
   return MESSAGES[code] || 'Métricas temporariamente indisponíveis.'
+}
+
+/** Snapshot assado no HTML pelo `npm run build:html`, se houver. */
+export function embeddedSnapshot() {
+  const data = globalThis.__MEDIA_KIT_DATA__
+  if (!data || typeof data !== 'object' || !data.periods) return null
+  return { ...data, meta: { ...data.meta, snapshot: true } }
 }
 
 export async function fetchMetrics({ signal } = {}) {

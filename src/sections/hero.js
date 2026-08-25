@@ -22,10 +22,30 @@ function portrait() {
       el('span', { className: 'hero-portrait-initials', text: initials(creatorConfig.name) }),
     ])
 
+  // Na versão de arquivo único a foto vem embutida como data URI; nas demais,
+  // pelo caminho normal em /public.
+  const embedded = globalThis.__MEDIA_KIT_PHOTO__
+  const src = embedded || creatorConfig.photo
+
+  // Aberto do disco sem foto embutida, `/assets/…` aponta para a raiz do
+  // sistema de arquivos e nunca resolve. Vamos direto ao monograma em vez de
+  // disparar uma requisição condenada e sujar o console.
+  const inalcancavel =
+    !embedded && globalThis.location?.protocol === 'file:' && creatorConfig.photo.startsWith('/')
+
+  if (inalcancavel) {
+    frame.append(
+      el('div', { className: 'hero-portrait-glow', attrs: { 'aria-hidden': 'true' } }),
+      el('div', { className: 'hero-portrait-ring', attrs: { 'aria-hidden': 'true' } }),
+      fallback(),
+    )
+    return frame
+  }
+
   const image = el('img', {
     className: 'hero-portrait-img',
     attrs: {
-      src: creatorConfig.photo,
+      src,
       alt: creatorConfig.photoAlt,
       // A foto do Hero é o maior elemento da primeira dobra (LCP):
       // carrega cedo, sem lazy.

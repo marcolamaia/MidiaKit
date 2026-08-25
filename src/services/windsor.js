@@ -177,6 +177,12 @@ export const PROFILE_FIELDS = [
 /**
  * Série diária. `reach` vem de `user_insights_day`; o restante de
  * `user_insights_day_total_value`. Agrupar por `date` mantém as duas alinhadas.
+ *
+ * `follower_count` fica DE FORA de propósito. O Instagram só o oferece para os
+ * últimos 30 dias e, pedido além disso, a Windsor **rejeita a consulta
+ * inteira** com erro — não devolve a coluna vazia. Se ele estivesse aqui, a
+ * busca de 180 dias falharia por completo e o Media Kit ficaria sem série
+ * nenhuma. Ele é buscado à parte, em `FOLLOWER_FIELDS`, só na janela permitida.
  */
 export const DAILY_FIELDS = [
   'date',
@@ -189,8 +195,16 @@ export const DAILY_FIELDS = [
   'shares',
   'saves',
   'replies',
-  'follower_count',
 ]
+
+/**
+ * Novos seguidores por dia — consulta separada, limitada aos últimos 30 dias
+ * (restrição da Meta). Ver a nota em DAILY_FIELDS.
+ */
+export const FOLLOWER_FIELDS = ['date', 'follower_count']
+
+/** Janela máxima que o Instagram aceita para `follower_count`. */
+export const FOLLOWER_MAX_DAYS = 30
 
 /** `media_info` + `media_insights` — um registro por publicação. */
 export const MEDIA_FIELDS = [

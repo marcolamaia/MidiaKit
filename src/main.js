@@ -20,7 +20,7 @@ import { el, qs } from './utils/dom.js'
 import { icon } from './components/icons.js'
 import { getState, setState, subscribe } from './hooks/store.js'
 import { observeReveals } from './hooks/reveal.js'
-import { fetchMetrics } from './services/api.js'
+import { embeddedSnapshot, fetchMetrics } from './services/api.js'
 import { DEFAULT_PERIOD } from './config.js'
 
 import { renderHeader } from './sections/header.js'
@@ -106,14 +106,38 @@ subscribe(render)
 /* Carregamento                                                               */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Carrega as métricas.
+ *
+ * Na versão de arquivo único existe um snapshot embutido: ele pinta a página
+ * imediatamente, sem rede. Em seguida tentamos `/api/metrics` — se o arquivo
+ * estiver hospedado ao lado da serverless function, os dados ao vivo assumem.
+ * Se não estiver, a falha é silenciosa: o snapshot já está na tela e não faz
+ * sentido mostrar erro por cima de um dado válido.
+ */
 async function load() {
-  setState({ status: 'loading', error: null })
+  const snapshot = embeddedSnapshot()
+
+  if (snapshot) {
+    setState({ status: 'ready', data: snapshot, error: null })
+  } else {
+    setState({ status: 'loading', error: null })
+  }
+
+  // Aberto direto do disco (file://), não existe `/api/metrics` para chamar —
+  // e a tentativa só produziria um erro de CORS no console de quem abrir o
+  // inspetor. O snapshot embutido já é a resposta correta aqui.
+  if (snapshot && globalThis.location?.protocol === 'file:') return
+
   try {
     const data = await fetchMetrics()
     setState({ status: 'ready', data, error: null })
   } catch (error) {
-    // A falha fica contida nas seções de dados; o Media Kit segue navegável.
-    console.warn('[media-kit] falha ao carregar métricas:', error.code, error.message)
+    console.warn('[media-kit] métricas ao vivo indisponíveis:', error.code, error.message)
+    // Com snapshot na tela, a página continua correta e completa.
+    if (snapshot) return
+    // Sem snapshot, a falha fica contida nas seções de dados e o restante do
+    // Media Kit segue navegável.
     setState({ status: 'error', error: { code: error.code, message: error.message } })
   }
 }

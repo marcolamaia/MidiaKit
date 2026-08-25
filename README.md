@@ -20,7 +20,52 @@ npm install
 
 Requer **Node 18.18 ou superior**.
 
-## 2. Iniciar o projeto
+## 2. Arquivo único (`media-kit.html`)
+
+Se você quer **um arquivo só** — para abrir com dois cliques, anexar num e-mail
+ou subir em qualquer hospedagem sem configurar nada:
+
+```bash
+npm run build:html
+```
+
+Gera `media-kit.html` na raiz, com CSS, JavaScript, ícones, foto e **os números
+já embutidos**. Sem servidor, sem build, sem pasta de assets. Abre offline.
+
+```bash
+# com os números reais (precisa da chave no .env)
+DEMO_MODE=false npm run build:html
+
+# só para ver o layout, com números fictícios e faixa de aviso
+DEMO_MODE=true npm run build:html
+
+# reconstruir a partir de dados já capturados, sem chamar a API
+SNAPSHOT_FROM=data/windsor-snapshot.json npm run build:html
+```
+
+**A chave nunca entra no arquivo.** Ela é usada no seu computador, na hora de
+gerar; o HTML sai só com o resultado.
+
+O que acontece com as miniaturas: as URLs do CDN da Meta são assinadas e expiram
+em um ou dois dias. O gerador **baixa e embute** as capas dos conteúdos em
+destaque, então o Media Kit continua com as imagens reais mesmo aberto semanas
+depois. O que não couber no orçamento de tamanho segue por URL e, se expirar,
+cai num fundo com o texto do próprio post — nunca imagem quebrada.
+
+Se você hospedar esse arquivo **ao lado da serverless function** (`/api/metrics`),
+ele troca sozinho o snapshot pelos dados ao vivo ao abrir. Sozinho, no disco,
+usa o snapshot e nem tenta a rede.
+
+Para atualizar os números, rode o comando de novo e substitua o arquivo.
+
+---
+
+## 3. Versão com servidor (dados sempre ao vivo)
+
+Se preferir que a página busque as métricas a cada visita, use o projeto
+completo com a serverless function — é o que as seções seguintes descrevem.
+
+### Iniciar o projeto
 
 ```bash
 cp .env.example .env
@@ -42,7 +87,7 @@ npm run lint:data   # diagnostica a integração Windsor.ai (ver seção 8)
 node --test tests/*.test.js   # roda os testes
 ```
 
-## 3. Configurar o Windsor.ai
+## 4. Configurar o Windsor.ai
 
 1. Crie a conta em <https://onboard.windsor.ai>.
 2. Conecte o **Instagram** (seção 5 abaixo).
@@ -77,7 +122,7 @@ dimensão que não seja `date` faz a API devolver `null` em parte das colunas. P
 série temporal é pedida **por dia** e qualquer agregação (semanal, total do período) é
 feita no nosso código, em `src/services/normalize.js`.
 
-## 4. Inserir credenciais
+## 5. Inserir credenciais
 
 | Variável | Obrigatória | Para que serve |
 |---|---|---|
@@ -93,7 +138,7 @@ feita no nosso código, em `src/services/normalize.js`.
 > A chave **nunca** chega ao navegador. Ela é lida só pela serverless function
 > `api/metrics.js`. O `.env` está no `.gitignore`.
 
-## 5. Conectar o Instagram
+## 6. Conectar o Instagram
 
 1. A conta precisa ser **Comercial** ou **Criador de conteúdo** (conta pessoal não expõe
    insights na API da Meta).
@@ -124,7 +169,7 @@ feita no nosso código, em `src/services/normalize.js`.
 Métricas que a API não retorna **nunca** viram estimativa: o componente some ou exibe
 "Dados não disponíveis", com a estrutura pronta para receber o dado no futuro.
 
-## 6. Ativar / desativar o modo demonstração
+## 7. Ativar / desativar o modo demonstração
 
 ```bash
 DEMO_MODE=true    # dados fictícios + faixa de aviso permanente no topo
@@ -138,7 +183,7 @@ Media Kit (posicionamento, formatos, cases, contato) continua funcionando normal
 Os mocks vivem só em `src/services/demo-data.js`, cada bloco marcado como fictício, e
 esse módulo só é carregado quando `DEMO_MODE=true`.
 
-## 7. Configurar contatos, textos, marcas e cases
+## 8. Configurar contatos, textos, marcas e cases
 
 Tudo que é editável está em **`src/config.js`**. Nenhum desses valores está espalhado
 pelo código.
@@ -185,7 +230,7 @@ Ao publicar num domínio diferente, atualize:
 1. `creatorConfig.siteUrl` em `src/config.js`
 2. As tags `canonical`, `og:url` e `og:image` em `index.html`
 
-## 8. Deploy
+## 9. Deploy
 
 ### Vercel (recomendado — a serverless function já está configurada)
 
@@ -227,6 +272,8 @@ padrão `(req, res)` do Node.
 ## Arquitetura
 
 ```
+media-kit.html            ← o arquivo único, autossuficiente (npm run build:html)
+
 /api
   metrics.js              serverless: rate limit, cache HTTP, tratamento de erro
 
@@ -252,8 +299,14 @@ padrão `(req, res)` do Node.
   /utils                  format (pt-BR), dates, dom
   /styles                 tokens, base, components, sections, charts
 
-/tests                    testes sobre uma amostra REAL da Windsor.ai
-/scripts/check-windsor.js diagnóstico da integração
+/data
+  windsor-snapshot.json   linhas cruas REAIS capturadas da Windsor.ai, usadas
+                          por SNAPSHOT_FROM= para regerar o HTML offline
+
+/tests                    testes sobre a amostra REAL + garantias do arquivo único
+/scripts
+  build-single-html.js    gera o media-kit.html
+  check-windsor.js        diagnóstico da integração
 ```
 
 **Separação de camadas.** Nenhum componente visual fala com a API. O fluxo é sempre
@@ -296,6 +349,18 @@ descartar nenhuma data.
 viu o conteúdo. Dividir por seguidores infla o número em perfis com alta distribuição —
 não é a conta honesta.
 
+**O arquivo único carrega os dados junto, em vez de buscá-los.** Um Media Kit
+comercial é enviado por e-mail e aberto dias depois, às vezes sem rede. Buscar
+métricas no carregamento significaria uma página que às vezes abre vazia na frente
+de uma marca. Com o snapshot embutido ela sempre abre completa — e, quando está
+hospedada ao lado da API, os dados ao vivo assumem em seguida.
+
+**`follower_count` é consultado à parte.** O Instagram só entrega novos seguidores
+por dia nos últimos 30 dias e, pedido além disso, a Windsor **rejeita a consulta
+inteira** com erro em vez de devolver a coluna vazia. Junto com a série de 180
+dias, isso derrubaria toda a busca. Ele vai numa chamada própria e curta, cuja
+falha não afeta o resto.
+
 **Fatias "não informado" saem do cálculo demográfico.** O Instagram devolve uma parcela
 sem gênero/idade declarados. Ela é excluída para que os percentuais representem quem
 declarou, e isso está escrito na própria interface.
@@ -333,3 +398,5 @@ declarou, e isso está escrito na própria interface.
 - [ ] `brands` preenchido com marcas reais (ou mantido vazio)
 - [ ] `cases` preenchidos com números reais (ou mantidos como espaço reservado)
 - [ ] `siteUrl` e as tags canonical/OG apontando para o domínio final
+- [ ] Se for usar o arquivo único: `DEMO_MODE=false npm run build:html` e conferir
+      que a faixa amarela de demonstração **não** aparece
