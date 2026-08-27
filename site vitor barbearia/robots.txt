@@ -1,0 +1,7 @@
+# Perninha BarberShop — Freguesia, Jacarepaguá, Rio de Janeiro
+# Troque o domínio abaixo pelo domínio real ao publicar.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://perninhabarbershop.com.br/sitemap.xml
