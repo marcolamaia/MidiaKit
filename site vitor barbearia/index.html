@@ -24,12 +24,12 @@
 <meta property="og:title" content="Perninha BarberShop Freguesia | Barbearia em Jacarepaguá - RJ">
 <meta property="og:description" content="A barbearia dos famosos, na Freguesia. Corte, barba e cuidado masculino com 4,9 de 5 no Google. Agende seu horário online.">
 <meta property="og:url" content="https://perninhabarbershop.com.br/">
-<meta property="og:image" content="https://perninhabarbershop.com.br/og-image.jpg">
+<meta property="og:image" content="https://perninhabarbershop.com.br/hero.jpg">
 <meta property="og:image:alt" content="Perninha BarberShop - Freguesia, Rio de Janeiro">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Perninha BarberShop Freguesia | Barbearia em Jacarepaguá - RJ">
 <meta name="twitter:description" content="A barbearia dos famosos, na Freguesia. Corte, barba e cuidado masculino. 4,9 de 5 no Google.">
-<meta name="twitter:image" content="https://perninhabarbershop.com.br/og-image.jpg">
+<meta name="twitter:image" content="https://perninhabarbershop.com.br/hero.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0b'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23c9a227'%3EP%3C/text%3E%3C/svg%3E">
 
@@ -50,7 +50,7 @@
   "priceRange": "R$ 20 - R$ 98",
   "currenciesAccepted": "BRL",
   "paymentAccepted": "Cartão de crédito, Cartão de débito, Pix, Dinheiro, Vale-presente",
-  "image": "https://perninhabarbershop.com.br/og-image.jpg",
+  "image": "https://perninhabarbershop.com.br/hero.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Estr. dos Três Rios, 506",
@@ -418,18 +418,53 @@ ul,ol{list-style:none}
 }
 @media(min-width:900px){.hero__mark{right:-4vw;bottom:2vh;width:min(46vw,640px)}}
 
-/* Slot pronto para foto real: adicione a imagem em .hero__photo img */
+/* Foto do hero.
+   A classe .has-photo é ligada por JS só quando a imagem carrega de fato,
+   então o tratamento gráfico continua servindo de fallback. */
 .hero__photo{
-  position:absolute;inset:0;z-index:-2;opacity:0;pointer-events:none;
+  position:absolute;inset:0;z-index:-2;pointer-events:none;
+  opacity:0;transition:opacity 1s var(--ease);
 }
-.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:center right}
+.hero__photo img{
+  width:100%;height:100%;object-fit:cover;
+  object-position:72% center;
+}
+/* véu de leitura: escurece o lado do texto e preserva a cena à direita */
 .hero__photo::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,#08080a 8%,rgba(8,8,10,.72) 46%,rgba(8,8,10,.25) 100%),
-             linear-gradient(180deg,rgba(8,8,10,.85) 0%,transparent 32%,rgba(8,8,10,.9) 100%);
+  background:
+    linear-gradient(90deg,
+      rgba(6,6,8,.96) 0%,
+      rgba(6,6,8,.92) 26%,
+      rgba(6,6,8,.68) 48%,
+      rgba(6,6,8,.34) 72%,
+      rgba(6,6,8,.18) 100%),
+    linear-gradient(180deg,
+      rgba(6,6,8,.78) 0%,
+      rgba(6,6,8,.20) 26%,
+      rgba(6,6,8,.24) 58%,
+      rgba(6,6,8,.88) 100%);
+}
+/* no mobile o texto ocupa a largura toda: o véu passa a ser vertical */
+@media(max-width:820px){
+  .hero__photo img{object-position:64% center}
+  .hero__photo::after{
+    background:
+      linear-gradient(180deg,
+        rgba(6,6,8,.90) 0%,
+        rgba(6,6,8,.55) 22%,
+        rgba(6,6,8,.80) 52%,
+        rgba(6,6,8,.96) 78%,
+        rgba(6,6,8,.99) 100%),
+      linear-gradient(90deg,rgba(6,6,8,.65) 0%,rgba(6,6,8,.35) 100%);
+  }
 }
 .hero.has-photo .hero__photo{opacity:1}
 .hero.has-photo .hero__mark{display:none}
+/* com foto atrás, o texto secundário precisa de mais contraste */
+.hero.has-photo .hero__sub{color:#cfccc7}
+.hero.has-photo .hero__loc{color:#b8b5b0}
+.hero.has-photo .hero__bg::after{opacity:.22}
 
 .hero__in{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(36px,6vw,64px)}
 
@@ -920,9 +955,10 @@ body.has-dock{padding-bottom:0}
     <rect width="100%" height="100%" filter="url(#grain)" opacity="0.14"/>
   </svg>
 
-  <!-- ▼ SLOT PARA FOTO REAL: coloque a imagem aqui e adicione a classe "has-photo" na <section class="hero"> ▼ -->
+  <!-- Foto do hero: basta o arquivo hero.jpg existir nesta pasta.
+       Se não existir, o site cai no tratamento gráfico automaticamente. -->
   <div class="hero__photo" aria-hidden="true">
-    <!-- <img src="foto-da-barbearia.jpg" alt="Interior da Perninha BarberShop na Freguesia"> -->
+    <img id="hero-photo" src="hero.jpg" alt="" fetchpriority="high" decoding="async">
   </div>
 
   <!-- monograma line-art (substitui foto de banco) -->
@@ -1591,7 +1627,23 @@ body.has-dock{padding-bottom:0}
   }
 
   /* ---------------------------------------------------------
-     5. Ano no rodapé
+     5. Foto do hero — só assume o fundo se carregar de verdade
+     --------------------------------------------------------- */
+  var heroPhoto = document.getElementById('hero-photo');
+  var heroSection = document.getElementById('inicio');
+  if (heroPhoto && heroSection) {
+    var showPhoto = function () { heroSection.classList.add('has-photo'); };
+    var dropPhoto = function () { heroPhoto.parentNode.remove(); };
+    if (heroPhoto.complete) {
+      (heroPhoto.naturalWidth > 0 ? showPhoto : dropPhoto)();
+    } else {
+      heroPhoto.addEventListener('load', showPhoto);
+      heroPhoto.addEventListener('error', dropPhoto);
+    }
+  }
+
+  /* ---------------------------------------------------------
+     6. Ano no rodapé
      --------------------------------------------------------- */
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
