@@ -119,7 +119,7 @@
 </script>
 
 <style>
-/* Road Rage — Youssef Habchi, 2016. Arquivo local, subset A-Z.
+/* Road Rage, de Youssef Habchi, 2016. Arquivo local, subset A-Z.
    ATENÇÃO: a licença que acompanha a fonte é de uso PESSOAL.
    Para uso comercial é preciso licença do autor: contact@youssef-habchi.com */
 @font-face{
@@ -132,7 +132,7 @@
 }
 
 /* ============================================================
-   PERNINHA BARBERSHOP — FREGUESIA / RJ
+   PERNINHA BARBERSHOP / FREGUESIA / RJ
    Design system inline. Sem frameworks. Mobile-first.
    ============================================================ */
 
@@ -405,7 +405,7 @@ ul,ol{list-style:none}
   isolation:isolate;
 }
 
-/* camada gráfica (substitua por foto real quando tiver — ver .hero__photo) */
+/* camada gráfica de fallback (a foto real fica em .hero__photo) */
 .hero__bg{position:absolute;inset:0;z-index:-3;background:var(--ink)}
 .hero__bg::before{
   content:"";position:absolute;inset:0;
@@ -414,7 +414,7 @@ ul,ol{list-style:none}
     radial-gradient(90% 70% at 12% 100%,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 60%),
     linear-gradient(180deg,#101115 0%,#08080a 62%);
 }
-/* trama diagonal fina — textura, não ruído */
+/* trama diagonal fina para dar textura ao fundo */
 .hero__bg::after{
   content:"";position:absolute;inset:0;opacity:.5;
   background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 1px,transparent 1px 9px);
@@ -498,8 +498,9 @@ ul,ol{list-style:none}
 .chip i{font-style:normal;color:var(--muted-2)}
 .chip s{text-decoration:none;color:var(--muted)}
 
-/* Hero editorial: PERNINHA sólido e condensado,
-   BARBERSHOP fino e com tracking largo — contraste de peso, não de fonte. */
+/* Hero: PERNINHA em Oswald condensado e BARBERSHOP na Road Rage.
+   O corpo da segunda linha está calibrado para ela fechar exatamente
+   na mesma largura da primeira em qualquer viewport. */
 .hero__title{
   font-family:var(--f-display);
   text-transform:uppercase;
@@ -903,7 +904,7 @@ body.has-dock{padding-bottom:0}
     <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8.5h12v6.2a4.6 4.6 0 0 1-4.6 4.6H9.1a4.6 4.6 0 0 1-4.6-4.6V8.5z"/><path d="M16.5 10.2h1.9a2.3 2.3 0 0 1 0 4.6h-1.9"/><path d="M8 5.4V3.2M11.5 5.4V3.2M15 5.4V3.2"/></symbol>
     <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.4 8.8a15 15 0 0 1 19.2 0"/><path d="M5.6 12.4a10.2 10.2 0 0 1 12.8 0"/><path d="M8.8 16a5.4 5.4 0 0 1 6.4 0"/><circle cx="12" cy="19.4" r="1.2" fill="currentColor" stroke="none"/></symbol>
     <symbol id="i-park" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="2.4"/><path d="M9.6 17V7h3.1a2.9 2.9 0 0 1 0 5.8H9.6"/></symbol>
-    <symbol id="i-access" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12.6" cy="4.4" r="1.8"/><path d="M12.6 8v5.4h4.1l2.4 5.6"/><path d="M13.2 13.4a5 5 0 1 1-4.9 6.3"/></symbol>
+    <symbol id="i-access" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.6" cy="3.6" r="1.8"/><path d="M9.6 7v4.7h5.1l2 4.9"/><path d="M9.6 9.2h3.2"/><circle cx="9.9" cy="15.8" r="5.1"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 14v-4M6.6 17.4V6.6M10.2 19.6V4.4M13.8 16.6V7.4M17.4 13.6v-3.2M21 15.4V8.6"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="5.4" width="18.8" height="13.2" rx="2"/><path d="M2.6 9.8h18.8M6.4 14.6h3.4"/></symbol>
     <symbol id="i-family" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.4" cy="6.2" r="2.6"/><path d="M4.2 20v-3.4a4.2 4.2 0 0 1 8.4 0V20"/><circle cx="17" cy="10.4" r="1.9"/><path d="M14 20v-2.2a3 3 0 0 1 6 0V20"/></symbol>
@@ -915,7 +916,7 @@ body.has-dock{padding-bottom:0}
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
-    <a class="logo" href="#inicio" aria-label="Perninha BarberShop — início">
+    <a class="logo" href="#inicio" aria-label="Perninha BarberShop, ir para o início">
       <b>Perninha</b><span>Barbershop</span>
     </a>
 
@@ -1008,8 +1009,8 @@ body.has-dock{padding-bottom:0}
     <p class="hero__loc an">Freguesia · Rio de Janeiro</p>
 
     <p class="hero__sub an">
-      A barbearia dos famosos, na Freguesia. Corte, barba e cuidado masculino
-      num espaço com bar, música e gente que faz do jeito certo — do pezinho ao combo completo.
+      A barbearia dos famosos, na Freguesia. Corte, barba, pezinho e combo,
+      num salão com bar, lanchonete e música ao vivo no sábado.
     </p>
 
     <div class="hero__cta an">
@@ -1022,7 +1023,7 @@ body.has-dock{padding-bottom:0}
     </div>
   </div>
 
-  <div class="hero__scroll" aria-hidden="true"><span>Role para explorar</span></div>
+  <div class="hero__scroll" aria-hidden="true"><span>Role para ver mais</span></div>
 </section>
 
 <!-- ============ FAIXA DE DADOS RÁPIDOS ============ -->
@@ -1033,7 +1034,7 @@ body.has-dock{padding-bottom:0}
         <span class="fact__ic"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
         <div>
           <dt>Onde estamos</dt>
-          <dd><b>Estr. dos Três Rios, 506</b><br>Freguesia (Jacarepaguá)<br>Rio de Janeiro — RJ, 22745-005</dd>
+          <dd><b>Estr. dos Três Rios, 506</b><br>Freguesia (Jacarepaguá)<br>Rio de Janeiro - RJ, 22745-005</dd>
           <a class="link-arrow" href="#localizacao">Ver no mapa <svg width="13" height="13" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
@@ -1042,7 +1043,7 @@ body.has-dock{padding-bottom:0}
         <span class="fact__ic"><svg aria-hidden="true"><use href="#i-clock"/></svg></span>
         <div>
           <dt>Horário de funcionamento</dt>
-          <dd id="fact-hours">Seg a Qui 09:00–20:00<br>Sex 09:00–21:00 · Sáb 09:00–20:00<br>Domingo fechado</dd>
+          <dd id="fact-hours">Seg a qui, 09:00 às 20:00<br>Sex, 09:00 às 21:00<br>Sáb, 09:00 às 20:00<br>Domingo fechado</dd>
           <span class="badge badge--closed" id="status-badge" aria-live="polite"><i></i><span id="status-text">Verificando…</span></span>
         </div>
       </div>
@@ -1077,8 +1078,8 @@ body.has-dock{padding-bottom:0}
         <h2 class="h-sec" id="h-servicos">O que fazemos<br><em>na cadeira</em></h2>
       </div>
       <p class="lede">
-        Preços da unidade Freguesia, com duração média de cada serviço.
-        Escolha o seu, agende pelo Trinks e chegue na hora — a cadeira já está separada.
+        Preço e duração de cada serviço na unidade Freguesia.
+        Escolha o seu e agende pelo Trinks.
       </p>
     </div>
 
@@ -1091,7 +1092,7 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>60,00</span>
           <span class="svc__dur">30 min</span>
         </div>
-        <p class="svc__desc">O corte clássico da casa: máquina, tesoura e acabamento feito com calma, do jeito que você pediu.</p>
+        <p class="svc__desc">Máquina, tesoura e acabamento. Do jeito que você pedir.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
 
@@ -1103,7 +1104,7 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>54,00</span>
           <span class="svc__dur">30 min</span>
         </div>
-        <p class="svc__desc">O mesmo padrão de corte em condição Gold — para quem já é de casa e volta sempre.</p>
+        <p class="svc__desc">O mesmo corte, em condição Gold. Para quem já é de casa.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
 
@@ -1115,7 +1116,7 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>50,00</span>
           <span class="svc__dur">30 min</span>
         </div>
-        <p class="svc__desc">Desenho, alinhamento e finalização. Toalha, navalha e o cuidado que a barba pede.</p>
+        <p class="svc__desc">Toalha quente, navalha e o alinhamento no fim.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
 
@@ -1127,7 +1128,7 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>98,00</span>
           <span class="svc__dur">1 hora</span>
         </div>
-        <p class="svc__desc">Corte e barba na mesma visita, com uma hora reservada só para você sair pronto.</p>
+        <p class="svc__desc">Corte e barba na mesma visita. Uma hora reservada só para você.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
 
@@ -1139,7 +1140,7 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>85,00</span>
           <span class="svc__dur">1 hora</span>
         </div>
-        <p class="svc__desc">Corte + barba em condição Gold. A visita completa, com o melhor custo da casa.</p>
+        <p class="svc__desc">Corte e barba juntos, em condição Gold.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
 
@@ -1151,14 +1152,14 @@ body.has-dock{padding-bottom:0}
           <span class="svc__price"><small>R$</small>20,00</span>
           <span class="svc__dur">20 min</span>
         </div>
-        <p class="svc__desc">Manutenção rápida entre um corte e outro para o contorno continuar limpo.</p>
+        <p class="svc__desc">Aquele retoque no contorno entre um corte e outro.</p>
         <a class="btn btn--sm" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </article>
     </div>
 
     <div class="svc__note rv">
       <svg aria-hidden="true"><use href="#i-info"/></svg>
-      <p><b>Também atendemos sobrancelha, massagem, depilação e estética corporal.</b> Esses serviços não têm preço fixo publicado — o valor é sob consulta. Fale com a gente no WhatsApp ou consulte na hora do agendamento.</p>
+      <p><b>Também atendemos sobrancelha, massagem, depilação e estética corporal.</b> Esses serviços não têm preço fixo publicado, o valor é sob consulta. Chame no WhatsApp ou pergunte na hora de agendar.</p>
     </div>
   </div>
 </section>
@@ -1168,12 +1169,12 @@ body.has-dock{padding-bottom:0}
   <div class="wrap">
     <div class="sec-head sec-head--split rv">
       <div>
-        <p class="eyebrow">A experiência Perninha</p>
-        <h2 class="h-sec" id="h-exp">Não é só<br><em>um corte</em></h2>
+        <p class="eyebrow">O salão</p>
+        <h2 class="h-sec" id="h-exp">Como é<br><em>por aqui</em></h2>
       </div>
       <p class="lede">
-        Aqui a visita tem tempo próprio. Tem bar, tem resenha, tem café, tem música ao vivo no sábado —
-        e tem uma equipe que trata cada cadeira como se fosse a única do dia.
+        Tem bar, tem café, tem resenha e no sábado tem música ao vivo.
+        Dá para chegar cedo sem se arrepender.
       </p>
     </div>
 
@@ -1181,32 +1182,32 @@ body.has-dock{padding-bottom:0}
       <article class="exp__item rv">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-cup"/></svg></span>
         <h3>Bar e lanchonete</h3>
-        <p>Bar e lanchonete no próprio salão. Espere sua vez com uma bebida na mão em vez de olhando o relógio.</p>
+        <p>Dá para comer e beber alguma coisa enquanto espera a sua vez.</p>
       </article>
       <article class="exp__item rv rv-d1">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-music"/></svg></span>
         <h3>Música ao vivo aos sábados</h3>
-        <p>Sábado na Perninha tem som ao vivo. O corte vira programa, não tarefa.</p>
+        <p>Som ao vivo no salão, toda semana. Se você gosta de movimento, marque no sábado.</p>
       </article>
       <article class="exp__item rv rv-d2">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-wifi"/></svg></span>
         <h3>Wi-Fi grátis</h3>
-        <p>Internet liberada para todo mundo — resolva o que precisa enquanto espera.</p>
+        <p>Internet liberada para quem está no salão.</p>
       </article>
       <article class="exp__item rv">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-park"/></svg></span>
         <h3>Estacionamento grátis</h3>
-        <p>Vaga sem custo para clientes. Chegue de carro sem rodar o quarteirão atrás de lugar.</p>
+        <p>Vaga sem custo para cliente. Dá para vir de carro sem procurar lugar na rua.</p>
       </article>
       <article class="exp__item rv rv-d1">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-access"/></svg></span>
         <h3>Espaço acessível</h3>
-        <p>Estrutura acessível para pessoas com deficiência, incluindo entrada e circulação no salão.</p>
+        <p>Entrada e circulação acessíveis para pessoas com deficiência.</p>
       </article>
       <article class="exp__item rv rv-d2">
         <span class="exp__ic"><svg aria-hidden="true"><use href="#i-family"/></svg></span>
         <h3>Adultos e crianças</h3>
-        <p>Atendemos todas as idades. Pode trazer o filho — a primeira cadeira dele também é aqui.</p>
+        <p>Atendemos adulto e criança. Pode trazer o filho junto.</p>
       </article>
     </div>
 
@@ -1223,11 +1224,11 @@ body.has-dock{padding-bottom:0}
     <div class="sec-head sec-head--split rv">
       <div>
         <p class="eyebrow">Equipe Freguesia</p>
-        <h2 class="h-sec" id="h-equipe">Quem está<br><em>na cadeira</em></h2>
+        <h2 class="h-sec" id="h-equipe">Quem vai<br><em>te atender</em></h2>
       </div>
       <p class="lede">
-        Os profissionais que atendem na unidade Freguesia. Você pode escolher com quem quer cortar
-        na hora de agendar pelo Trinks.
+        Quem atende na unidade Freguesia. Na hora de agendar pelo Trinks
+        você escolhe com quem quer cortar.
       </p>
     </div>
 
@@ -1264,8 +1265,8 @@ body.has-dock{padding-bottom:0}
 <section class="section social" id="avaliacoes" aria-labelledby="h-aval">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">O que dizem os clientes</p>
-      <h2 class="h-sec" id="h-aval">Avaliações <em>reais</em></h2>
+      <p class="eyebrow">Avaliações no Google</p>
+      <h2 class="h-sec" id="h-aval">O que falam<br><em>da gente</em></h2>
     </div>
 
     <div class="rating rv">
@@ -1281,7 +1282,7 @@ body.has-dock{padding-bottom:0}
           <svg aria-hidden="true"><use href="#i-star"/></svg>
           <svg aria-hidden="true"><use href="#i-star"/></svg>
         </div>
-        <p>Média de <strong>119 avaliações</strong> de clientes da unidade Freguesia no Google.</p>
+        <p>Média de <strong>119 avaliações</strong> de clientes da unidade Freguesia.</p>
       </div>
       <a class="btn" href="https://g.page/perninhabarbershop?share" target="_blank" rel="noopener">
         Ver avaliações no Google <svg aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1318,7 +1319,7 @@ body.has-dock{padding-bottom:0}
         <p class="eyebrow">Instagram oficial</p>
         <p class="ig__count"><em>13,6 mil</em> seguidores</p>
         <h2 class="h-sec" id="h-ig" style="font-size:clamp(28px,3vw,40px);max-width:14ch">A barbearia dos famosos</h2>
-        <p>Bastidores, cortes do dia, resenha e os sábados com música ao vivo. É por lá que a gente mostra a barbearia por dentro.</p>
+        <p>Corte do dia, bastidor e os sábados com música ao vivo. É lá que a gente posta o que acontece no salão.</p>
         <span class="ig__handle"><svg aria-hidden="true"><use href="#i-ig"/></svg> @perninhabarbershop</span>
       </div>
       <a class="btn btn--gold" href="https://www.instagram.com/perninhabarbershop" target="_blank" rel="noopener">
@@ -1337,8 +1338,8 @@ body.has-dock{padding-bottom:0}
         <h2 class="h-sec" id="h-loc">Freguesia,<br><em>Jacarepaguá</em></h2>
       </div>
       <p class="lede">
-        Na Estrada dos Três Rios, no coração da Freguesia. Estacionamento gratuito para clientes
-        e acesso fácil para quem vem de qualquer ponto de Jacarepaguá.
+        Estamos na Estrada dos Três Rios, na Freguesia. Tem estacionamento gratuito
+        para cliente e é fácil de chegar de qualquer ponto de Jacarepaguá.
       </p>
     </div>
 
@@ -1348,7 +1349,7 @@ body.has-dock{padding-bottom:0}
           <b>Perninha BarberShop</b>
           Estr. dos Três Rios, 506<br>
           Freguesia (Jacarepaguá)<br>
-          Rio de Janeiro — RJ, 22745-005
+          Rio de Janeiro - RJ, 22745-005
         </address>
 
         <div class="loc__acts">
@@ -1365,12 +1366,12 @@ body.has-dock{padding-bottom:0}
         <div id="horario">
           <p class="eyebrow" style="margin-bottom:14px">Horário de funcionamento</p>
           <dl class="hours" id="hours-list">
-            <div class="hours__row" data-day="1"><dt>Segunda-feira</dt><dd>09:00 — 20:00</dd></div>
-            <div class="hours__row" data-day="2"><dt>Terça-feira</dt><dd>09:00 — 20:00</dd></div>
-            <div class="hours__row" data-day="3"><dt>Quarta-feira</dt><dd>09:00 — 20:00</dd></div>
-            <div class="hours__row" data-day="4"><dt>Quinta-feira</dt><dd>09:00 — 20:00</dd></div>
-            <div class="hours__row" data-day="5"><dt>Sexta-feira</dt><dd>09:00 — 21:00</dd></div>
-            <div class="hours__row" data-day="6"><dt>Sábado</dt><dd>09:00 — 20:00</dd></div>
+            <div class="hours__row" data-day="1"><dt>Segunda-feira</dt><dd>09:00 às 20:00</dd></div>
+            <div class="hours__row" data-day="2"><dt>Terça-feira</dt><dd>09:00 às 20:00</dd></div>
+            <div class="hours__row" data-day="3"><dt>Quarta-feira</dt><dd>09:00 às 20:00</dd></div>
+            <div class="hours__row" data-day="4"><dt>Quinta-feira</dt><dd>09:00 às 20:00</dd></div>
+            <div class="hours__row" data-day="5"><dt>Sexta-feira</dt><dd>09:00 às 21:00</dd></div>
+            <div class="hours__row" data-day="6"><dt>Sábado</dt><dd>09:00 às 20:00</dd></div>
             <div class="hours__row is-closed" data-day="0"><dt>Domingo</dt><dd>Fechado</dd></div>
           </dl>
 
@@ -1402,7 +1403,7 @@ body.has-dock{padding-bottom:0}
     <div class="ft__top">
       <div class="ft__logo">
         <b>Perninha</b><span>Barbershop</span>
-        <p>Barbearia masculina na Freguesia, Jacarepaguá — Rio de Janeiro. Corte, barba e cuidado com padrão de gente que gosta do que faz.</p>
+        <p>Barbearia masculina na Freguesia, Jacarepaguá, Rio de Janeiro. Corte, barba e cuidado masculino.</p>
         <div class="ft__socials">
           <a href="https://www.instagram.com/perninhabarbershop" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
           <a href="https://www.facebook.com/perninhabarbershop" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
@@ -1413,7 +1414,7 @@ body.has-dock{padding-bottom:0}
       <div>
         <h4>Contato</h4>
         <ul>
-          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Estr.%20dos%20Tr%C3%AAs%20Rios%2C%20506%2C%20Freguesia%2C%20Rio%20de%20Janeiro" target="_blank" rel="noopener">Estr. dos Três Rios, 506<br>Freguesia (Jacarepaguá)<br>Rio de Janeiro — RJ, 22745-005</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Estr.%20dos%20Tr%C3%AAs%20Rios%2C%20506%2C%20Freguesia%2C%20Rio%20de%20Janeiro" target="_blank" rel="noopener">Estr. dos Três Rios, 506<br>Freguesia (Jacarepaguá)<br>Rio de Janeiro - RJ, 22745-005</a></li>
           <li><a href="tel:+552121484406">(21) 2148-4406</a></li>
           <li><a href="https://wa.me/552121484406" target="_blank" rel="noopener">WhatsApp: (21) 2148-4406</a></li>
           <li><a href="https://g.page/perninhabarbershop?share" target="_blank" rel="noopener">Avaliações no Google</a></li>
@@ -1423,17 +1424,17 @@ body.has-dock{padding-bottom:0}
       <div>
         <h4>Horário</h4>
         <ul>
-          <li>Segunda a quinta — 09:00 às 20:00</li>
-          <li>Sexta — 09:00 às 21:00</li>
-          <li>Sábado — 09:00 às 20:00</li>
-          <li>Domingo — Fechado</li>
+          <li>Segunda a quinta, 09:00 às 20:00</li>
+          <li>Sexta, 09:00 às 21:00</li>
+          <li>Sábado, 09:00 às 20:00</li>
+          <li>Domingo, fechado</li>
           <li style="margin-top:18px"><a class="link-arrow" href="https://www.trinks.com/perninhabarbeshop" target="_blank" rel="noopener">Agendar horário <svg width="13" height="13" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
         </ul>
       </div>
     </div>
 
     <div class="ft__bottom">
-      <span>© <span id="year">2026</span> Perninha BarberShop — Freguesia</span>
+      <span>© <span id="year">2026</span> Perninha BarberShop · Freguesia</span>
       <span>Barbearia em Jacarepaguá · Rio de Janeiro</span>
     </div>
   </div>
@@ -1460,7 +1461,7 @@ body.has-dock{padding-bottom:0}
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------------------------------------------------
-     1. HORÁRIO — aberto agora / fechado (fuso America/Sao_Paulo)
+     1. HORÁRIO: aberto agora / fechado (fuso America/Sao_Paulo)
         Seg-Qui 09:00-20:00 | Sex 09:00-21:00 | Sáb 09:00-20:00 | Dom fechado
      --------------------------------------------------------- */
   var SCHEDULE = {
@@ -1649,7 +1650,7 @@ body.has-dock{padding-bottom:0}
   }
 
   /* ---------------------------------------------------------
-     5. Foto do hero — só assume o fundo se carregar de verdade
+     5. Foto do hero: só assume o fundo se carregar de verdade
      --------------------------------------------------------- */
   var heroPhoto = document.getElementById('hero-photo');
   var heroSection = document.getElementById('inicio');
