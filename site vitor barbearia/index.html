@@ -36,7 +36,7 @@
 <link rel="preload" as="image" href="hero.jpg" imagesrcset="hero-900.jpg 900w, hero.jpg 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&family=Road+Rage&display=swap">
 
 <script type="application/ld+json">
 {
@@ -146,6 +146,7 @@
      Inter   -> interface, corpo de texto, botões e labels */
   --f-display:'Oswald',"Arial Narrow","Helvetica Neue Condensed",sans-serif;
   --f-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --f-script:'Road Rage','Oswald',cursive;  /* só na assinatura do hero */
 
   /* escala tipográfica */
   --t-hero:clamp(72px,9vw,150px);
@@ -499,12 +500,13 @@ ul,ol{list-style:none}
   color:var(--paper);
 }
 .hero__title .l2{
-  display:block;font-weight:200;
-  font-size:clamp(34.5px,4.31vw,71.8px);
-  line-height:1;
-  letter-spacing:.34em;
-  margin-right:-.34em;
-  margin-top:.3em;
+  display:block;
+  font-family:var(--f-script);
+  font-weight:400;
+  font-size:clamp(80.4px,10.05vw,167.4px);
+  line-height:.92;
+  letter-spacing:.01em;
+  margin-top:.06em;
   background:var(--gold-grad);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }

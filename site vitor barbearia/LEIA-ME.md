@@ -37,7 +37,20 @@ O domínio `perninhabarbershop.com.br` é um placeholder. Substitua em:
 - `robots.txt` — linha `Sitemap:`
 - `sitemap.xml` — todas as tags `<loc>`
 
-## 3. Dados que o site usa
+## 3. Fontes
+
+Três famílias, todas do Google Fonts (nenhum arquivo local):
+
+- **Oswald** — títulos e números
+- **Inter** — interface, corpo de texto, botões e labels
+- **Road Rage** — só a palavra BARBERSHOP no hero
+
+O tamanho da Road Rage está calibrado para a palavra fechar exatamente na
+mesma largura de PERNINHA em qualquer tela. Se trocar essa fonte, recalibre
+o `font-size` de `.hero__title .l2`, senão o alinhamento das duas linhas
+se perde.
+
+## 4. Dados que o site usa
 
 Agendamento aponta para o Trinks (`trinks.com/perninhabarbeshop`) e o
 WhatsApp para `wa.me/552121484406`. O aviso "aberto agora / fechado" é
