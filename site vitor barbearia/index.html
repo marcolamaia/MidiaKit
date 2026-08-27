@@ -33,10 +33,11 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0b'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23c9a227'%3EP%3C/text%3E%3C/svg%3E">
 
+<link rel="preload" as="font" type="font/woff2" href="road-rage.woff2" crossorigin>
 <link rel="preload" as="image" href="hero.jpg" imagesrcset="hero-900.jpg 900w, hero.jpg 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&family=Road+Rage&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 
 <script type="application/ld+json">
 {
@@ -118,6 +119,18 @@
 </script>
 
 <style>
+/* Road Rage — Youssef Habchi, 2016. Arquivo local, subset A-Z.
+   ATENÇÃO: a licença que acompanha a fonte é de uso PESSOAL.
+   Para uso comercial é preciso licença do autor: contact@youssef-habchi.com */
+@font-face{
+  font-family:'Road Rage';
+  src:url('road-rage.woff2') format('woff2');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+  size-adjust:100%;
+}
+
 /* ============================================================
    PERNINHA BARBERSHOP — FREGUESIA / RJ
    Design system inline. Sem frameworks. Mobile-first.
@@ -503,10 +516,10 @@ ul,ol{list-style:none}
   display:block;
   font-family:var(--f-script);
   font-weight:400;
-  font-size:clamp(80.4px,10.05vw,167.4px);
-  line-height:.92;
+  font-size:clamp(43px,5.38vw,89.6px);
+  line-height:1;
   letter-spacing:.01em;
-  margin-top:.06em;
+  margin-top:.2em;
   background:var(--gold-grad);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }

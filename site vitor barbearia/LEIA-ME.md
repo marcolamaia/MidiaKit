@@ -39,16 +39,38 @@ O domínio `perninhabarbershop.com.br` é um placeholder. Substitua em:
 
 ## 3. Fontes
 
-Três famílias, todas do Google Fonts (nenhum arquivo local):
+- **Oswald** e **Inter** — Google Fonts, carregadas pelo `<link>` no topo.
+- **Road Rage** — Youssef Habchi, 2016. Arquivo local `road-rage.woff2`,
+  servido pelo próprio site (não é a Road Rage do Google Fonts, que é de
+  outro autor e tem desenho diferente).
 
-- **Oswald** — títulos e números
-- **Inter** — interface, corpo de texto, botões e labels
-- **Road Rage** — só a palavra BARBERSHOP no hero
+### Licença da Road Rage
 
-O tamanho da Road Rage está calibrado para a palavra fechar exatamente na
-mesma largura de PERNINHA em qualquer tela. Se trocar essa fonte, recalibre
-o `font-size` de `.hero__title .l2`, senão o alinhamento das duas linhas
-se perde.
+O arquivo que veio com a fonte diz: **free for personal use only**. Um site
+de barbearia é uso comercial, então antes de publicar vale fechar a licença
+comercial com o autor: **contact@youssef-habchi.com** (site:
+youssef-habchi.com). Enquanto isso não acontece, dá para trocar a segunda
+linha do hero por qualquer outra fonte sem mexer no resto do layout.
+
+### Sobre o arquivo da fonte
+
+`road-rage.woff2` tem 62 KB e é um subset só com **A–Z maiúsculo** — que é
+o único uso dela no site. O original completo está em
+`Road_Rage-original.otf` (334 KB).
+
+Para regerar o subset com outros caracteres:
+
+```
+pip install fonttools brotli
+pyftsubset Road_Rage-original.otf --flavor=woff2 \
+  --output-file=road-rage.woff2 \
+  --text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+  --layout-features=kern --desubroutinize
+```
+
+Se você trocar a fonte da segunda linha, recalibre o `font-size` de
+`.hero__title .l2`: ele está ajustado para a palavra BARBERSHOP fechar
+exatamente na mesma largura de PERNINHA em qualquer tela.
 
 ## 4. Dados que o site usa
 
