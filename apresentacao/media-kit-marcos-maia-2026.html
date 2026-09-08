@@ -517,14 +517,24 @@ h2.title {
   .slide { break-after: page; page-break-after: always; margin: 0; }
   .slide:last-child { break-after: auto; page-break-after: auto; }
 
+  /* Na impressão sai tudo que vira máscara de transparência de área grande.
+     Blur, drop-shadow em foto e sombra de 70px viram soft mask que o Chromium
+     rasteriza por página: engordam o PDF e travam leitor de celular. Os brilhos
+     pequenos (texto, régua, barra) ficam, porque a área é mínima. */
+  .bleed { filter: none !important; }
+  .bleed[style*="blur"] { display: none !important; }
+  .logo-prism { filter: none; }
+  .panel-hot { box-shadow: none; }
+  .shot { box-shadow: none; }
+
   /* O grão é uma camada de ruído que o Chromium rasteriza por página: sozinho
      ele dobra o tamanho do PDF. Na tela ele fica (evita banding no preto);
      na impressão sai, e a grade de pontos continua, porque é vetor. */
+  /* A varredura de 4 em 4 pixels são ~200 linhas por página: quase invisível e
+     cara de desenhar. Na impressão fica só a grade de pontos. */
   .slide::after {
-    background-image:
-      radial-gradient(rgba(168, 85, 247, 0.13) 1px, transparent 1px),
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 4px);
-    background-size: 32px 32px, auto;
+    background-image: radial-gradient(rgba(168, 85, 247, 0.13) 1px, transparent 1px);
+    background-size: 32px 32px;
     opacity: 0.45;
   }
 }

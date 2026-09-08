@@ -12,6 +12,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { chromium } from 'playwright';
+import { jpegPdf } from './jpeg-pdf.mjs';
 
 /**
  * Alguns ambientes já trazem o Chromium instalado numa versão diferente da que
@@ -32,6 +33,8 @@ function chromiumPath() {
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SLIDE = { width: 1440, height: 810 };
 const OUT = 'media-kit-marcos-maia-2026';
+const LIGHT_SCALE = 1.35;    // 1440 CSS px -> ~1944 px de largura
+const LIGHT_QUALITY = 76;
 
 const MIME = {
   '.png': 'image/png',
@@ -119,10 +122,34 @@ async function main() {
       quality: 86,
     });
   }
+  console.log(`✓ preview/slide-01..${String(slides).padStart(2, '0')}.jpg`);
+
+  // --- versão leve: uma JPEG por página ---------------------------------
+  // Leitor de celular decodifica uma foto e pronto; não precisa desenhar
+  // degradê, sombra nem máscara. É a cópia que vai por e-mail e WhatsApp.
+  const lightPage = await browser.newPage({
+    viewport: SLIDE,
+    deviceScaleFactor: LIGHT_SCALE,
+  });
+  await lightPage.setContent(html, { waitUntil: 'load' });
+  await lightPage.evaluate(() => document.fonts.ready);
+  await lightPage.emulateMedia({ media: 'print' });
+
+  const frames = [];
+  for (let i = 0; i < slides; i++) {
+    frames.push(await lightPage.locator('.slide').nth(i).screenshot({
+      type: 'jpeg',
+      quality: LIGHT_QUALITY,
+    }));
+  }
+  await writeFile(join(HERE, `${OUT}-leve.pdf`),
+    jpegPdf(frames, { width: SLIDE.width * 0.75, height: SLIDE.height * 0.75 }));
 
   await browser.close();
-  console.log(`✓ ${OUT}.pdf  (${slides} páginas ${SLIDE.width}×${SLIDE.height})`);
-  console.log(`✓ preview/slide-01..${String(slides).padStart(2, '0')}.jpg`);
+
+  const mb = async (f) => ((await stat(join(HERE, f))).size / 1024 / 1024).toFixed(1);
+  console.log(`✓ ${OUT}.pdf       ${await mb(`${OUT}.pdf`)} MB — texto selecionável`);
+  console.log(`✓ ${OUT}-leve.pdf  ${await mb(`${OUT}-leve.pdf`)} MB — abre em qualquer aparelho`);
 }
 
 main().catch((err) => {
