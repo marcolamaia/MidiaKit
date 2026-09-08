@@ -3,13 +3,28 @@
 Deck comercial de 13 slides em 16:9, reconstruído a partir do media kit de setembro,
 com métricas novas e identidade visual **VOLT** (preto e roxo, pegada tech).
 
-Saem três coisas do mesmo código-fonte:
+Saem quatro coisas do mesmo código-fonte:
 
 | Arquivo | Para que serve |
 |---|---|
-| `media-kit-marcos-maia-2026.pdf` | O que vai para a marca. 13 páginas 16:9, ~6 MB. |
-| `media-kit-marcos-maia-2026.html` | Arquivo único, tudo embutido. Abre offline, com dois cliques. |
+| `media-kit-marcos-maia-2026-leve.pdf` | **O que vai para a marca.** ~1,3 MB, uma JPEG por página. Abre em qualquer celular e passa em qualquer e-mail. |
+| `media-kit-marcos-maia-2026.pdf` | ~2,8 MB, vetorial. Texto selecionável e nitidez total no zoom — bom para impressão. |
+| `media-kit-marcos-maia-2026.html` | Arquivo único, tudo embutido. Abre offline e é a versão mais bonita: mantém o grão e os brilhos que saem na impressão. |
 | `preview/slide-NN.jpg` | Conferência rápida sem abrir o PDF. |
+
+### Por que existem duas versões de PDF
+
+Blur, `drop-shadow` e sombra grande viram **máscara de transparência** no PDF. O
+Chromium rasteriza cada uma por página, o arquivo engorda e leitor de celular
+trava tentando desenhar — duas páginas chegaram a carregar 1,4 MB só de máscara.
+A regra do `@media print` no `styles.css` derruba as camadas de área grande e
+mantém os brilhos pequenos, que custam quase nada: só isso levou o PDF vetorial
+de 6 MB para 2,8 MB.
+
+A versão leve vai além: cada página é uma foto. O leitor decodifica uma JPEG e
+acabou, sem desenhar nada. É a cópia para mandar por WhatsApp e e-mail. O
+`jpeg-pdf.mjs` monta esse PDF sem biblioteca nenhuma — JPEG entra no PDF sem
+recompressão, pelo filtro `DCTDecode`.
 
 ## Gerar
 
@@ -27,7 +42,8 @@ em outro caminho, aponte com `CHROMIUM_PATH=/caminho/do/chrome npm run deck`.
 deck.html      os 13 slides, um <section class="slide"> cada
 styles.css     o sistema visual inteiro (tokens no :root)
 fonts.css      Space Grotesk + JetBrains Mono em base64, para abrir sem internet
-build.mjs      embute tudo e imprime o PDF
+build.mjs      embute tudo, imprime os dois PDF e tira os previews
+jpeg-pdf.mjs   monta o PDF leve a partir das JPEG, sem dependência
 assets/        logo, fotos recortadas, logos das marcas, prints
 ```
 
