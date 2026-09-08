@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 
-const SAFE_BOTTOM = 744; // 810 - padding-bottom do .pad
+const SAFE_BOTTOM = 738; // 810 - padding-bottom do .pad
 const SAFE_RIGHT = 1440;
 
 const exe = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/usr/bin/chromium']
@@ -27,7 +27,8 @@ const rows = await page.evaluate(({ SAFE_BOTTOM, SAFE_RIGHT }) => {
     let bottom = 0, right = 0, culprit = '';
     slide.querySelectorAll('*').forEach((el) => {
       if (el.closest('.foot') || el.closest('.bleed') || el.classList.contains('bleed')) return;
-      if (el.classList.contains('prismbar') || el.classList.contains('pad')) return;
+      if (el.classList.contains('rail') || el.classList.contains('pad')) return;
+      if (el.closest('.rail')) return;
       const r = el.getBoundingClientRect();
       if (!r.height || !r.width) return;
       const b = r.bottom - box.top;
