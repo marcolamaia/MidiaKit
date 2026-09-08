@@ -10,10 +10,13 @@
     "preview": "vite preview",
     "lint:data": "node scripts/check-windsor.js",
     "build:html": "node scripts/build-single-html.js",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "deck": "node apresentacao/build.mjs",
+    "deck:check": "node apresentacao/check-layout.mjs"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",
+    "playwright": "^1.63.0",
     "vite": "^6.0.7"
   },
   "engines": {

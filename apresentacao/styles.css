@@ -1,0 +1,510 @@
+/* =========================================================================
+   MEDIA KIT — MARCOS MAIA 2026
+   Sistema visual "PRISMA": preto profundo, gradiente iridescente, vidro.
+   Canvas de slide: 1440 x 810 (16:9)
+   ========================================================================= */
+
+:root {
+  /* --- superfícies --- */
+  --ink:        #05050A;
+  --ink-1:      #0A0A14;
+  --ink-2:      #10101C;
+  --line:       rgba(255, 255, 255, 0.10);
+  --line-soft:  rgba(255, 255, 255, 0.06);
+
+  /* --- texto (tokens de texto: nunca a cor da série) --- */
+  --tx:         #FFFFFF;
+  --tx-2:       rgba(255, 255, 255, 0.72);
+  --tx-3:       rgba(255, 255, 255, 0.50);
+  --tx-4:       rgba(255, 255, 255, 0.34);
+
+  /* --- gradiente da marca --- */
+  --prism: linear-gradient(100deg,
+      #FF2D9B 0%, #C049F5 20%, #6B7BFF 40%,
+      #00E5FF 62%, #6EF7A5 82%, #B6FF3C 100%);
+  --prism-rev: linear-gradient(280deg,
+      #FF2D9B 0%, #C049F5 20%, #6B7BFF 40%,
+      #00E5FF 62%, #6EF7A5 82%, #B6FF3C 100%);
+
+  /* --- cores de dado ---
+     Magnitude (série única) = uma matiz, ciano. O gradiente prisma fica
+     reservado para a barra/valor em destaque, nunca para todas as barras. */
+  --data:       #00E5FF;
+  --data-soft:  rgba(0, 229, 255, 0.20);
+  --data-alt:   #FF2D9B;   /* segunda categoria, quando há identidade */
+  --data-track: rgba(255, 255, 255, 0.075);
+
+  --r-lg: 24px;
+  --r-md: 16px;
+  --r-sm: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #000; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #000;
+  color: var(--tx);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 28px 0 56px;
+}
+
+/* =========================================================================
+   SLIDE
+   ========================================================================= */
+
+.slide {
+  position: relative;
+  width: 1440px;
+  height: 810px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--tx);
+  isolation: isolate;
+}
+
+/* Aurora — manchas radiais suaves nas três cores do prisma. */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background:
+    radial-gradient(38% 46% at 12% 8%,  rgba(255, 45, 155, 0.26), transparent 70%),
+    radial-gradient(42% 50% at 88% 24%, rgba(0, 229, 255, 0.22),  transparent 70%),
+    radial-gradient(46% 44% at 68% 96%, rgba(182, 255, 60, 0.14), transparent 70%),
+    radial-gradient(40% 40% at 30% 88%, rgba(123, 91, 255, 0.20), transparent 70%);
+}
+
+/* Grão + malha fina, para o preto não ficar chapado. */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(255,255,255,0.022) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(90deg,  rgba(255,255,255,0.022) 0 1px, transparent 1px 72px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: auto, auto, 160px 160px;
+  mix-blend-mode: soft-light;
+}
+
+.slide > * { position: relative; z-index: 2; }
+
+/* Régua de prisma no topo de cada slide — assinatura da identidade. */
+.prismbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: var(--prism);
+  z-index: 3;
+}
+
+.pad { padding: 60px 90px 74px; height: 100%; display: flex; flex-direction: column; }
+
+/* =========================================================================
+   TIPOGRAFIA
+   ========================================================================= */
+
+.eyebrow {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px; height: 2px;
+  background: var(--prism);
+  border-radius: 2px;
+}
+
+h1, h2, h3, .num, .stat { font-family: 'Sora', 'Inter', sans-serif; }
+
+h2.title {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+  margin-top: 16px;
+}
+
+.title-rule {
+  width: 132px; height: 3px;
+  background: var(--prism);
+  border-radius: 3px;
+  margin-top: 18px;
+}
+
+.lede {
+  font-size: 17px;
+  line-height: 1.58;
+  color: var(--tx-2);
+  max-width: 62ch;
+}
+
+.grad {
+  background: var(--prism);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================================
+   VIDRO
+   ========================================================================= */
+
+.glass {
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.022));
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    0 34px 64px -34px rgba(0,0,0,0.92);
+}
+
+/* Cartão com borda em gradiente (padding-box / border-box: imprime igual). */
+.glass-prism {
+  border-radius: var(--r-lg);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, #0E0E1A, #0A0A12) padding-box,
+    var(--prism) border-box;
+  box-shadow: 0 34px 64px -34px rgba(0,0,0,0.92);
+}
+
+/* =========================================================================
+   NÚMEROS
+   ========================================================================= */
+
+.stat { line-height: 1; }
+
+.stat .num {
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+.stat .lbl {
+  display: block;
+  margin-top: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  line-height: 1.45;
+}
+.stat .sub {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tx-4);
+  line-height: 1.5;
+}
+
+.num-xxl { font-size: 96px; }
+.num-xl  { font-size: 66px; }
+.num-lg  { font-size: 48px; }
+.num-md  { font-size: 32px; }
+
+/* =========================================================================
+   BARRAS  (especificações de marca: trilho recessivo, ponta 4px, rótulo direto)
+   ========================================================================= */
+
+.bars { display: flex; flex-direction: column; gap: 14px; }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 118px 1fr 64px;
+  align-items: center;
+  gap: 18px;
+}
+.bar-row .k {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tx-2);
+  font-variant-numeric: tabular-nums;
+}
+.bar-row .v {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tx);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.track {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--data-track);
+  overflow: hidden;
+}
+.fill {
+  display: block;          /* é um <span>: sem isto, altura e largura não valem */
+  height: 100%;
+  border-radius: 999px;
+  background: var(--data);
+  min-width: 6px;
+}
+/* barra em destaque = valor de manchete, recebe o gradiente da marca */
+.bar-row.is-peak .fill { background: var(--prism); }
+.bar-row.is-peak .k,
+.bar-row.is-peak .v { color: var(--tx); font-weight: 700; }
+
+/* barra dividida em duas categorias (identidade, não magnitude) */
+.split {
+  display: flex;
+  gap: 3px;                 /* separador de 3px entre preenchimentos */
+  height: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.split > span { display: block; height: 100%; }
+.split .a { background: var(--data); }
+.split .b { background: var(--data-alt); }
+
+.legend {
+  display: flex;
+  gap: 26px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--tx-2);
+}
+.legend i {
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: baseline;
+}
+.legend .a i { background: var(--data); }
+.legend .b i { background: var(--data-alt); }
+
+/* colunas verticais (horários) */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+  align-items: end;
+  height: 148px;
+}
+.col { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; gap: 10px; }
+.col .cbar {
+  width: 58%;
+  margin: 0 auto;
+  border-radius: 7px 7px 2px 2px;
+  background: linear-gradient(180deg, rgba(0,229,255,0.34), rgba(0,229,255,0.07));
+  border-top: 3px solid var(--data);
+}
+.col.is-peak .cbar {
+  background: linear-gradient(180deg, rgba(0,229,255,0.62), rgba(0,229,255,0.12));
+  border-top: 3px solid #fff;
+}
+.col .ct {
+  font-size: 12px;
+  color: var(--tx-4);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.col.is-peak .ct { color: var(--tx); font-weight: 600; }
+
+/* =========================================================================
+   CHIPS / PÍLULAS
+   ========================================================================= */
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tx-2);
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.035);
+}
+.chip strong { color: var(--tx); font-weight: 600; }
+
+/* =========================================================================
+   RODAPÉ DO SLIDE
+   ========================================================================= */
+
+.foot {
+  position: absolute;
+  left: 90px; right: 90px; bottom: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 4;
+}
+.foot img { height: 26px; opacity: 0.85; }
+/* o rodapé pode cair sobre uma foto sangrada, então ganha sombra própria */
+.foot > * { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.85); }
+.foot .n {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--tx-4);
+  font-variant-numeric: tabular-nums;
+}
+.foot .handle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--tx-4);
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   LOGO
+   ========================================================================= */
+
+/* O lockup branco vira máscara e recebe o gradiente do prisma. */
+.logo-prism {
+  background: var(--prism);
+  -webkit-mask-image: var(--logo-src);
+  mask-image: var(--logo-src);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+/* =========================================================================
+   FONTE / NOTA DE RODAPÉ DE DADO
+   ========================================================================= */
+
+.source {
+  font-size: 11.5px;
+  color: var(--tx-4);
+  line-height: 1.6;
+}
+.source b { color: var(--tx-3); font-weight: 600; }
+
+/* =========================================================================
+   PRINTS DE TELA
+   ========================================================================= */
+
+/* Os prints são dimensionados pela ALTURA disponível no slide e mantêm a
+   proporção real da captura de celular, então nunca deformam nem estouram. */
+.shots {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.shot {
+  flex: 0 0 auto;
+  height: 100%;
+  aspect-ratio: 921 / 1993;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #0E0E1A, #08080F);
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.95);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+/* enquanto o arquivo do print não existe, o espaço reservado guarda a proporção */
+.shot.is-empty { position: relative; }
+.shot.is-empty img { display: none; }
+.shot.is-empty::after {
+  content: attr(data-fallback);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--tx-4);
+  border: 1px dashed rgba(255,255,255,0.14);
+  border-radius: 20px;
+}
+
+.shot-cap {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--tx-4);
+  line-height: 1.5;
+}
+
+/* =========================================================================
+   MARCAS
+   ========================================================================= */
+
+.brands {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.brand {
+  height: 118px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-soft);
+  background: rgba(255,255,255,0.028);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand img {
+  max-width: 60%;
+  max-height: 42px;
+  opacity: 0.92;
+}
+
+/* =========================================================================
+   IMPRESSÃO
+   ========================================================================= */
+
+@page { size: 1440px 810px; margin: 0; }
+
+@media print {
+  body { display: block; padding: 0; gap: 0; background: var(--ink); }
+
+  /* O grão é uma camada de ruído que o Chromium rasteriza por página: sozinho
+     ele dobra o tamanho do PDF. Na tela ele fica (evita banding no preto);
+     na impressão sai, e as linhas de grade continuam, porque são vetor. */
+  .slide::after {
+    background-image:
+      repeating-linear-gradient(0deg,  rgba(255,255,255,0.022) 0 1px, transparent 1px 72px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.022) 0 1px, transparent 1px 72px);
+    mix-blend-mode: normal;
+    opacity: 0.6;
+  }
+  .slide { break-after: page; page-break-after: always; margin: 0; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+}
+
+/* Variante em que os prints se ajustam pela LARGURA da coluna. */
+.shots--fit { align-items: flex-start; }
+.shots--fit .shot { flex: 1 1 0; height: auto; }
